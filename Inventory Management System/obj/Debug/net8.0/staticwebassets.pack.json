@@ -113,12 +113,20 @@
       "PackagePath": "staticwebassets\\assets\\img\\flags\\us1.png"
     },
     {
+      "Id": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\brand.svg",
+      "PackagePath": "staticwebassets\\assets\\img\\icons\\brand.svg"
+    },
+    {
       "Id": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\calendars.svg",
       "PackagePath": "staticwebassets\\assets\\img\\icons\\calendars.svg"
     },
     {
       "Id": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\cash.svg",
       "PackagePath": "staticwebassets\\assets\\img\\icons\\cash.svg"
+    },
+    {
+      "Id": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\category.svg",
+      "PackagePath": "staticwebassets\\assets\\img\\icons\\category.svg"
     },
     {
       "Id": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\close-circle.svg",

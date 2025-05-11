@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "crro2+mHivgvf3T5q6nLMuDzynu1bocSofbYX+oGs4s=",
+  "Hash": "uygT6/ihgf7xTpH75Jo/lMBPuoFLdGHj+hm4eiQqkI4=",
   "Source": "Inventory Management System",
   "BasePath": "_content/Inventory Management System",
   "Mode": "Default",
@@ -568,6 +568,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\img\\flags\\us1.png"
     },
     {
+      "Identity": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\brand.svg",
+      "SourceId": "Inventory Management System",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\",
+      "BasePath": "_content/Inventory Management System",
+      "RelativePath": "assets/img/icons/brand.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\icons\\brand.svg"
+    },
+    {
       "Identity": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\calendars.svg",
       "SourceId": "Inventory Management System",
       "SourceType": "Discovered",
@@ -604,6 +623,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\img\\icons\\cash.svg"
+    },
+    {
+      "Identity": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\category.svg",
+      "SourceId": "Inventory Management System",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\",
+      "BasePath": "_content/Inventory Management System",
+      "RelativePath": "assets/img/icons/category.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\icons\\category.svg"
     },
     {
       "Identity": "C:\\Users\\User\\source\\repos\\Inventory Management System\\Inventory Management System\\wwwroot\\assets\\img\\icons\\close-circle.svg",
