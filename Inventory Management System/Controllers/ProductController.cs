@@ -8,4 +8,19 @@ public class ProductController : Controller
     {
         return View();
     }
+
+    public IActionResult Details()
+    {
+        return View();
+    }
+
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    public IActionResult Update()
+    {
+        return View();
+    }
 }

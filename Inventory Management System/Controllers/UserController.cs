@@ -13,4 +13,14 @@ public class UserController : Controller
     {
         return View();
     }
+
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    public IActionResult Update()
+    {
+        return View();
+    }
 }
