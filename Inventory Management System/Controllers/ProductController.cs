@@ -14,7 +14,7 @@ public class ProductController : Controller
         return View();
     }
 
-    public IActionResult Add()
+    public IActionResult Create()
     {
         return View();
     }

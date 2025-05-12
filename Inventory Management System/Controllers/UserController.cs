@@ -14,7 +14,7 @@ public class UserController : Controller
         return View();
     }
 
-    public IActionResult Add()
+    public IActionResult Create()
     {
         return View();
     }
