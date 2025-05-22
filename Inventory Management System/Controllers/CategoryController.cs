@@ -49,4 +49,25 @@ public class CategoryController : Controller
     {
         return View();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(CategoryUpdateViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var category = await _context.Categories.FindAsync(model.Id);
+        if (category == null)
+            return NotFound();
+
+        category.Name = model.Name;
+        category.Description = model.Description;
+        category.Code = model.Code;
+        category.UpdatedDate = DateTime.Now;
+
+        _context.Categories.Update(category);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
