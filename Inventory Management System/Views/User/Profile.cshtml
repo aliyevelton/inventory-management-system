@@ -1,0 +1,105 @@
+﻿@model UserProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="content">
+    <form asp-action="Profile" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-body">
+                <div class="profile-set">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <div class="profile-head">
+                    </div>
+                    <div class="profile-top d-flex align-items-center justify-content-between">
+                        <div class="profile-content d-flex align-items-center">
+                            <div class="profile-contentimg">
+                                <img id="blah" src="~/assets/img/profiles/@(Model.ExistingImage ?? "default.png")" alt="Profile" />
+                                <div class="profileupload">
+                                    <input type="file" asp-for="ProfilePicture" id="imgInp" />
+                                    <a href="javascript:void(0);">
+                                        <img src="~/assets/img/icons/edit-set.svg" alt="Edit" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="profile-contentname ms-3">
+                                <h2>@Model.FirstName @Model.LastName</h2>
+                                <h4>Update your photo and personal details.</h4>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-submit me-2">Save</button>
+                            <a href="javascript:location.reload();" class="btn btn-cancel">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <!-- Hidden ID -->
+                    <input asp-for="Id" type="hidden" />
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("imgInp").onchange = function (evt) {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById("blah").src = URL.createObjectURL(file);
+            }
+        };
+    </script>
+}

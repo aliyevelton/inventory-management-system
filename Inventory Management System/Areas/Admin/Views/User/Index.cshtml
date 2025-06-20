@@ -1,0 +1,191 @@
+﻿@model List<UserViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Users";
+}
+
+@{
+    var isActiveQuery = Context.Request.Query["isActive"].ToString();
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>User List</h4>
+            <h6>Manage your User</h6>
+        </div>
+        <div class="page-btn">
+            <a asp-controller="User" asp-action="Create" class="btn btn-added"><img src="~/assets/img/icons/plus.svg" alt="img" class="me-2">Add User</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-top">
+                <div class="search-set">
+                    <div class="search-path">
+                        <a class="btn btn-filter" id="filter_search">
+                            <img src="~/assets/img/icons/filter.svg" alt="img">
+                            <span><img src="~/assets/img/icons/closes.svg" alt="img"></span>
+                        </a>
+                    </div>
+                    <div class="search-input">
+                        <a class="btn btn-searchset">
+                            <img src="~/assets/img/icons/search-white.svg" alt="img">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="filter_inputs">
+                <div class="card-body pb-0">
+                    <form method="get" asp-action="Index" class="row align-items-end">
+    <div class="col-lg-2 col-sm-6 col-12">
+        <div class="form-group">
+            <label>Status</label>
+                                <select name="isActive" class="select">
+                                    <option value="">All</option>
+                                    @if (isActiveQuery == "true")
+                                    {
+                                        @:
+                                        <option value="true" selected>Active</option>
+                                        @:
+                                        <option value="false">Inactive</option>
+                                    }
+                                    else if (isActiveQuery == "false")
+                                    {
+                                        @:
+                                        <option value="true">Active</option>
+                                        @:
+                                        <option value="false" selected>Inactive</option>
+                                    }
+                                    else
+                                    {
+                                        @:
+                                        <option value="true">Active</option>
+                                        @:
+                                        <option value="false">Inactive</option>
+                                    }
+                                </select>
+
+        </div>
+    </div>
+    <div class="col-lg-1 col-sm-6 col-12 ms-auto text-end">
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <div>
+                <button type="submit" class="btn btn-filters">
+                    <img src="~/assets/img/icons/search-whites.svg" alt="Search">
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table  datanew">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="checkboxs">
+                                    <input type="checkbox">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </th>
+                            <th>Profile</th>
+                            <th>First name </th>
+                            <th>Last name </th>
+                            <th>Role</th>
+                            <th>Phone</th>
+                            <th>email</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @foreach (var user in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" name="selectedUsers" value="@user.Id" />
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td class="productimgname">
+                                    <a href="javascript:void(0);" class="product-img">
+                                        <img src="@Url.Content($"~/assets/img/profiles/{user.ProfileImage ?? "default.png"}")" alt="profile" />
+                                    </a>
+                                </td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Role</td>
+                                <td>@user.Phone</td>
+                                <td><a href="mailto:@user.Email">@user.Email</a></td>
+                                <td>
+                                    <div class="status-toggle d-flex justify-content-between align-items-center">
+                                        <input type="checkbox" id="user_@user.Id" class="check"
+                                        @(user.IsActive ? "checked" : "")
+                                               onchange="toggleUserStatus('@user.Id', this.checked)" />
+                                        <label for="user_@user.Id" class="checktoggle">checkbox</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="me-3" asp-controller="User" asp-action="Update" asp-route-id="@user.Id">
+                                        <img src="~/assets/img/icons/edit.svg" alt="img" />
+                                    </a>
+                                    <a class="me-3 confirm-text" href="javascript:void(0);" data-userid="@user.Id">
+                                        <img src="~/assets/img/icons/delete.svg" alt="img" />
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="~/assets/js/moment.min.js"></script>
+    <script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        function toggleUserStatus(userId, isActive) {
+
+            fetch('/Admin/User/ToggleStatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: userId,
+                    isActive: isActive
+                })
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to update status.');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert('User status updated successfully.');
+                    } else {
+                        alert('Update failed: ' + (data.message || 'Unknown error.'));
+                    }
+                })
+                .catch(error => {
+                    alert('An error occurred while updating status.');
+                });
+        }
+    </script>
+
+}

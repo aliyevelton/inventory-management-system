@@ -1,0 +1,75 @@
+﻿@model ProductDetailViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/plugins/owlcarousel/owl.carousel.min.css">
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Product Details</h4>
+            <h6>Full details of a product</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="productdetails">
+                        <ul class="product-bar">
+                            <li><h4>Product</h4><h6>@Model.Name</h6></li>
+                            <li><h4>Category</h4><h6>@Model.CategoryName</h6></li>
+                            <li><h4>Brand</h4><h6>@Model.BrandName</h6></li>
+                            <li><h4>SKU</h4><h6>@Model.SKU</h6></li>
+                            <li><h4>Quantity</h4><h6>@Model.Quantity</h6></li>
+                            <li><h4>Discounted Price</h4><h6>@Model.DiscountedPrice</h6></li>
+                            <li><h4>Price</h4><h6>@Model.Price.ToString("0.00")</h6></li>
+                            <li><h4>Status</h4><h6>@(Model.IsActive ? "Active" : "Inactive")</h6></li>
+                            <li><h4>Description</h4><h6>@Model.Description</h6></li>
+                            <li><h4>Created On</h4><h6>@Model.CreatedDate.ToString("dd MMM yyyy")</h6></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="slider-product-details">
+                        <div class="owl-carousel owl-theme product-slide">
+                            @foreach (var img in Model.Images)
+                            {
+                                <div class="slider-product">
+                                    <img src="~/assets/img/product/@img.ImageName" alt="Product Image">
+                                    <h4>@img.ImageName</h4>
+                                    <h6>@img.SizeKb KB</h6>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".product-slide").owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                nav: true,
+                dots: true
+            });
+        });
+    </script>
+}

@@ -1,0 +1,115 @@
+﻿@model ProductCreateViewModel
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/plugins/select2/css/select2.min.css" />
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Product Add</h4>
+            <h6>Create new product</h6>
+        </div>
+    </div>
+
+    <form asp-action="Create" enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Product Name -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control select">
+                                <option value="">Choose Category</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Brand -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control select">
+                                <option value="">Choose Brand</option>
+                            </select>
+                            <span asp-validation-for="BrandId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Price"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Discounted Price -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="DiscountedPrice"></label>
+                            <input asp-for="DiscountedPrice" class="form-control" />
+                            <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- SKU (Stock Keeping Unit) -->
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="SKU"></label>
+                            <input asp-for="SKU" class="form-control" />
+                            <span asp-validation-for="SKU" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Product Image(s) -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Product Images</label>
+                            <input asp-for="ImageFiles" type="file" multiple class="form-control" />
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/assets/plugins/select2/js/select2.min.js"></script>
+    <script>
+        $(".select").select2();
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

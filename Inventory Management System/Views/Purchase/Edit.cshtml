@@ -1,0 +1,115 @@
+﻿@model EditPurchaseViewModel
+@{
+    ViewBag.Title = "Edit Purchase";
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Edit Purchase</h4>
+            <h6>Update purchase information</h6>
+        </div>
+    </div>
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.AppUserId)
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Supplier Name</label>
+                            @Html.TextBoxFor(m => m.SupplierName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.SupplierName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Reference</label>
+                            @Html.TextBoxFor(m => m.Reference, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Reference, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Purchase Date</label>
+                            @Html.TextBoxFor(m => m.PurchaseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessageFor(m => m.PurchaseDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-2">Purchase Items</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th style="width: 100px;">Quantity</th>
+                            <th style="width: 120px;">Unit Cost</th>
+                            <th style="width: 120px;">Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @for (int i = 0; i < Model.PurchaseItems.Count; i++)
+                            {
+                                var item = Model.PurchaseItems[i];
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="~/assets/img/product/@item.ProductImageFileName" alt="Product Image" style="width:40px; height:40px; object-fit: cover; border-radius: 4px;" />
+                                    <span>@item.ProductName</span>
+                                        @Html.HiddenFor(m => m.PurchaseItems[i].ProductId)
+                                </td>
+                                <td>
+                                        @Html.TextBoxFor(m => m.PurchaseItems[i].Quantity, new { @class = "form-control quantity-input", type = "number", min = "1", data_index = i })
+                                </td>
+                                <td>
+                                        @Html.TextBoxFor(m => m.PurchaseItems[i].UnitCost, new { @class = "form-control unitcost-input", type = "number", step = "0.01", min = "0", data_index = i })
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control total-cost" readonly value="@(item.Quantity * item.UnitCost)" />
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+                </table>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-submit me-2">Save Changes</button>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-cancel">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function updateTotalCost(row) {
+            const qtyInput = row.querySelector('input[name$=".Quantity"]');
+            const costInput = row.querySelector('input[name$=".UnitCost"]');
+            const totalCostInput = row.querySelector('.total-cost');
+
+            const quantity = parseFloat(qtyInput.value) || 0;
+            const unitCost = parseFloat(costInput.value) || 0;
+            const total = (quantity * unitCost).toFixed(2);
+
+            totalCostInput.value = total;
+        }
+
+        document.querySelectorAll('tbody tr').forEach(row => updateTotalCost(row));
+
+        document.querySelectorAll('input[name$=".Quantity"], input[name$=".UnitCost"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const row = e.target.closest('tr');
+                updateTotalCost(row);
+            });
+        });
+    });
+</script>
+}

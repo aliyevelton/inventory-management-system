@@ -1,0 +1,90 @@
+﻿@model Inventory_Management_System.ViewModels.BrandUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update Brand";
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Brand Edit</h4>
+            <h6>Update your Brand</h6>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Update" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label asp-for="LogoFile">Product Image</label>
+                            <div class="image-upload">
+                                <input asp-for="LogoFile" type="file" class="form-control" />
+                                <div class="image-uploads mt-2">
+                                    <img src="~/assets/img/icons/upload.svg" alt="img" />
+                                    <h4>Drag and drop a file to upload</h4>
+                                </div>
+                                <span asp-validation-for="LogoFile" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.ExistingLogo))
+                    {
+                        <div class="col-12">
+                            <div class="product-list">
+                                <ul class="row">
+                                    <li>
+                                        <div class="productviews">
+                                            <div class="productviewsimg">
+                                                <img src="~/assets/img/brand/@Model.ExistingLogo" alt="img" />
+                                            </div>
+                                            <div class="productviewscontent">
+                                                <div class="productviewsname">
+                                                    <h2>@Model.Name</h2>
+                                                    <h3>Current Image</h3>
+                                                </div>
+                                                @* Optionally: delete image logic *@
+                                                @* <a asp-action="DeleteImage" asp-route-id="@Model.Id">x</a> *@
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

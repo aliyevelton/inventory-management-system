@@ -1,0 +1,84 @@
+﻿@model PurchaseDetailsViewModel
+@{
+    ViewBag.Title = "Purchase Details";
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Purchase Details</h4>
+            <h6>View purchase details</h6>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-sales-split">
+                <h2>Purchase Id : @Model.Id</h2>
+            </div>
+
+            <div class="invoice-box table-height" style="max-width: 1600px; width:100%; overflow: auto; margin:15px auto; padding: 0; font-size: 14px; line-height: 24px; color: #555;">
+                <table cellpadding="0" cellspacing="0" style="width: 100%; line-height: inherit; text-align: left;">
+                    <tbody>
+                        <tr class="top">
+                            <td colspan="6" style="padding: 5px; vertical-align: top;">
+                                <table style="width: 100%; line-height: inherit; text-align: left;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding:5px; vertical-align:top; text-align:left; padding-bottom:20px">
+                                                <span style="font-size:14px; color:#7367F0; font-weight:600; line-height: 35px;">Created by:</span><br />
+                                                <span>@Model.AppUserName</span><br />
+                                            </td>
+                                            <td style="padding:5px; vertical-align:top; text-align:left; padding-bottom:20px">
+                                                <span style="font-size:14px; color:#7367F0; font-weight:600; line-height: 35px;">Supplier Info</span><br />
+                                                <span><strong>Supplier:</strong> @Model.SupplierName</span><br />
+                                                <span><strong>Reference:</strong> @Model.Reference</span><br />
+                                            </td>
+                                            <td style="padding:5px; vertical-align:top; text-align:right; padding-bottom:20px">
+                                                <span style="font-size:14px; color:#7367F0; font-weight:600; line-height: 35px;">Purchase Date</span><br />
+                                                <span>@Model.PurchaseDate.ToString("dd/MM/yyyy")</span><br />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="heading" style="background: #F3F2F7;">
+                            <td style="padding: 10px; font-weight: 600; color: #5E5873;">Product Name</td>
+                            <td style="padding: 10px; font-weight: 600; color: #5E5873; text-align:center;">QTY</td>
+                            <td style="padding: 10px; font-weight: 600; color: #5E5873; text-align:center;">Unit Cost</td>
+                            <td style="padding: 10px; font-weight: 600; color: #5E5873; text-align:center;">Subtotal</td>
+                        </tr>
+
+                        @foreach (var item in Model.PurchaseItems)
+                        {
+                            <tr style="border-bottom:1px solid #E9ECEF;">
+                                <td style="padding: 10px; display: flex; align-items: center;">
+                                    <img src="~/assets/img/product/@item.ProductImageFileName" alt="img" class="me-2" style="width:40px;height:40px;">
+                                    @item.ProductName
+                                </td>
+                                <td style="padding: 5px; text-align:center;">@item.Quantity</td>
+                                <td style="padding: 5px; text-align:center;">@item.UnitCost.ToString("C")</td>
+                                <td style="padding: 5px; text-align:center;">@((item.Quantity * item.UnitCost).ToString("C"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Total Cost</label>
+                        <input type="text" readonly class="form-control" value="@Model.TotalCost.ToString("C")" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 mt-3">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-submit me-2">Edit</a>
+                <a asp-action="Index" class="btn btn-cancel">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
